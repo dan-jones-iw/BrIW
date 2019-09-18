@@ -1,5 +1,3 @@
-
-
 class File:
     people_file_path = "documentation/people.txt"
     drinks_file_path = "documentation/drinks.txt"
@@ -10,23 +8,22 @@ class File:
     def __init__(self):
         pass
 
-    def clean(self):
-        for i in range(0, len(self.file_list)):
-            long_string = ""
-            lines_list = self.read_file(i, True)
-            for line in lines_list:
-                if line != "" or line != "\n":
-                    long_string += line
-            self.rewrite_file(long_string, i)
+    def clean(self, file_list_choice):
+        long_string = ""
+        lines_list = self.read_file(file_list_choice, True)
+        for line in lines_list:
+            if line != "" or line != "\n":
+                long_string += line
+        self.rewrite_file(long_string, file_list_choice)
 
     def get_people(self):
-        return self.read_file(1, True)
+        return self.read_file(0, True)
 
     def get_drinks(self):
-        pass
+        return self.read_file(1, True)
 
     def get_favourites(self):
-        pass
+        return self.read_file(2, True)
 
     def rewrite_file(self, data, file_list_choice):
         file_path = self.file_list[file_list_choice]
@@ -41,6 +38,7 @@ class File:
         file.close()
 
     def read_file(self, file_list_choice, lines=False):
+        self.clean(file_list_choice)
         file_path = self.file_list[file_list_choice]
         file = self.open_file(file_path, "r")
         if lines:
